@@ -14,5 +14,5 @@ public interface RepoService {
 
     List<Repo> getRepositories();
 
-    Repo getRepositoryIdByName(String repoName);
+    Repo getRepositoryByName(String repoName);
 }

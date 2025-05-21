@@ -48,7 +48,7 @@ public class ScheduledTask {
                             commitDto.getMessage(),
                             commitDto.getAuthor(),
                             commitDto.getDate(),
-                            repositoryService.getRepositoryIdByName(repo.getName())));
+                            repositoryService.getRepositoryByName(repo.getName())));
                 }
             }
 

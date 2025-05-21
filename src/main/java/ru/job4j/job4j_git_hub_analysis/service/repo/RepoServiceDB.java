@@ -28,7 +28,7 @@ public class RepoServiceDB implements RepoService {
     }
 
     @Override
-    public Repo getRepositoryIdByName(String repoName) {
+    public Repo getRepositoryByName(String repoName) {
         return repoRepository.findRepoByName(repoName);
     }
 }
