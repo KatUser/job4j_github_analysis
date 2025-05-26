@@ -1,0 +1,4 @@
+ru\job4j\job4j_git_hub_analysis\mapper\CommitMapperTest.class
+ru\job4j\job4j_git_hub_analysis\service\commit\CommitServiceDBTest.class
+ru\job4j\job4j_git_hub_analysis\service\repo\RepoServiceDBTest.class
+ru\job4j\job4j_git_hub_analysis\controller\GitHubControllerTest.class
