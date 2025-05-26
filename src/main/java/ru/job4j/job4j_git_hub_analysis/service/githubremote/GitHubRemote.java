@@ -1,9 +1,12 @@
 package ru.job4j.job4j_git_hub_analysis.service.githubremote;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.job4j.job4j_git_hub_analysis.dto.CommitDto;
@@ -15,10 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
+@Component
 public class GitHubRemote {
 
     @Autowired
     private RestTemplate restTemplate;
+
     @Autowired
     private CommitMapper commitMapper;
 

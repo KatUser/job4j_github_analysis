@@ -1,8 +1,9 @@
 package ru.job4j.job4j_git_hub_analysis.task;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import ru.job4j.job4j_git_hub_analysis.dto.CommitDto;
 
@@ -14,13 +15,16 @@ import ru.job4j.job4j_git_hub_analysis.service.repo.RepoService;
 import java.util.List;
 
 @AllArgsConstructor
-@Service
+@Component
 public class ScheduledTask {
 
+    @Autowired
     private final RepoService repositoryService;
 
+    @Autowired
     private final CommitService commitService;
 
+    @Autowired
     private final GitHubRemote gitHubRemote;
 
     private final String username = "KatUser";
