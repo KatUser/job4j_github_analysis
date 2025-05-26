@@ -32,16 +32,17 @@ public class ScheduledTask {
     @Scheduled(fixedRateString = "${scheduler.fixedRate}")
     public void fetchRepoCommits() {
         System.out.println("Fetching repos list");
-        List<Repo> repos = gitHubRemote.fetchRepositories(username);
+        List<Repo> remoteRepos = gitHubRemote.fetchRepositories(username);
 
-        for (Repo repo : repos) {
-            if (!repositoryService.getRepositories().contains(repo)) {
+        for (Repo repo : remoteRepos) {
+            if (repositoryService.getRepositoryByName(repo.getName()) == null) {
                 repositoryService.create(new Repo(
                         repo.getId(),
                         repo.getName(),
                         repo.getUrl()
                 ));
             }
+
             var commitDtos
                     = gitHubRemote.fetchCommits(username, repo.getName());
 
@@ -57,6 +58,6 @@ public class ScheduledTask {
             }
 
         }
-
     }
 }
+
