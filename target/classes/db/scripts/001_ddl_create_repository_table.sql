@@ -1,0 +1,6 @@
+CREATE TABLE repository
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL UNIQUE,
+    url TEXT NOT NULL
+);

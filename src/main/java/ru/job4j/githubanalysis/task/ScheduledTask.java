@@ -1,7 +1,9 @@
 package ru.job4j.githubanalysis.task;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,7 @@ import ru.job4j.githubanalysis.service.repo.RepoSaver;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Component
 public class ScheduledTask {
 
@@ -27,19 +29,21 @@ public class ScheduledTask {
     @Autowired
     private final CommitSaver commitSaver;
 
-    private final String username = "KatUser";
+    @Value("${repousername}")
+    private String repoUserName;
 
     @Scheduled(fixedRateString = "${scheduler.fixedRate}")
     public void scheduledTaskRun() {
+        System.out.println(repoUserName);
         System.out.println("starting fetching remote repositories");
-        List<Repo> remoteRepos = gitHubRemote.fetchRepositories(username);
+        List<Repo> remoteRepos = gitHubRemote.fetchRepositories(repoUserName);
 
         System.out.println("starting saving remote repositories into database");
         repoSaver.saveRepoCommits(remoteRepos);
 
         System.out.println("starting saving commits into database");
         for (Repo repo : remoteRepos) {
-            List<CommitDto> commitDtos = gitHubRemote.fetchCommits(username, repo.getName());
+            List<CommitDto> commitDtos = gitHubRemote.fetchCommits(repoUserName, repo.getName());
             commitSaver.saveCommits(commitDtos, repo);
         }
     }
