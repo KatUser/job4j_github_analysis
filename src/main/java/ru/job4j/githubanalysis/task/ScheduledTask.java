@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import ru.job4j.githubanalysis.dto.CommitDto;
 
 import ru.job4j.githubanalysis.model.Repo;
-import ru.job4j.githubanalysis.service.commit.CommitSaver;
+import ru.job4j.githubanalysis.service.saver.CommitSaver;
 import ru.job4j.githubanalysis.service.githubremote.GitHubRemote;
-import ru.job4j.githubanalysis.service.repo.RepoSaver;
+import ru.job4j.githubanalysis.service.saver.RepoSaver;
 
 import java.util.List;
 
@@ -38,12 +38,12 @@ public class ScheduledTask {
         List<Repo> remoteRepos = gitHubRemote.fetchRepositories(repoUserName);
 
         System.out.println("starting saving remote repositories into database");
-        repoSaver.saveRepoCommits(remoteRepos);
+        repoSaver.saveRepo(remoteRepos);
 
         System.out.println("starting saving commits into database");
         for (Repo repo : remoteRepos) {
             List<CommitDto> commitDtos = gitHubRemote.fetchCommits(repoUserName, repo.getName());
-            commitSaver.saveCommits(commitDtos, repo);
+            commitSaver.saveCommit(commitDtos, repo);
         }
     }
 }

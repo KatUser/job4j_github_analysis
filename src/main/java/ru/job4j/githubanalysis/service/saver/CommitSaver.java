@@ -1,10 +1,11 @@
-package ru.job4j.githubanalysis.service.commit;
+package ru.job4j.githubanalysis.service.saver;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.job4j.githubanalysis.dto.CommitDto;
 import ru.job4j.githubanalysis.model.Repo;
+import ru.job4j.githubanalysis.service.commit.CommitService;
 import ru.job4j.githubanalysis.service.repo.RepoService;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class CommitSaver {
     @Autowired
     private final CommitService commitService;
 
-    public void saveCommits(List<CommitDto> commitDtos, Repo repo) {
+    public void saveCommit(List<CommitDto> commitDtos, Repo repo) {
         for (CommitDto commitDto : commitDtos) {
             if (!commitService.getCommits().contains(commitDto)) {
                 commitService.create(new CommitDto(
